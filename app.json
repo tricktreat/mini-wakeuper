@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index/index",
+    "pages/auth/auth",
+    "pages/center/center/center",
+    "pages/circle/circle/circle",
+    "pages/center/about/about",
+    "pages/center/setting/setting",
+    "pages/center/timeline/timeline",
+    "pages/index/signin/signin",
+    "pages/index/rank/rank"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "ColorUI",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {},
+  "tabBar": {
+    "custom": true,
+    "color": "#aaa",
+    "selectedColor": "#39b54a",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index/index",
+        "iconPath": "/images/tabbar/basics.png",
+        "selectedIconPath": "/images/tabbar/basics_cur.png",
+        "text": "在这里"
+      },
+      {
+        "pagePath": "pages/circle/circle/circle",
+        "iconPath": "/images/tabbar/component.png",
+        "selectedIconPath": "/images/tabbar/component_cur.png",
+        "text": "圈子"
+      },
+      {
+        "pagePath": "pages/center/center/center",
+        "iconPath": "/images/tabbar/plugin.png",
+        "selectedIconPath": "/images/tabbar/plugin_cur.png",
+        "text": "中心"
+      }
+    ]
+  }
+}

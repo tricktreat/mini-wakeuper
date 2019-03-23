@@ -1,0 +1,92 @@
+<view class='cu-custom' style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-{{setting.theme}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class='content' style='top:{{StatusBar}}px;'>在这里</view>
+  </view>
+</view>
+<!-- <view class="margin-xl padding-xl bg-white radius shadow-lg">
+  <view class="flex justify-center">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-green shadow'> 获取头像昵称 </button>
+    <block wx:else>
+      <view class='text-center'>
+        <view class="cu-avatar xl round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>
+        <view class="padding">{{userInfo.nickName}}</view>
+      </view>
+    </block>
+  </view>
+</view> -->
+<swiper class="{{setting.swiperIsCard?'card':'screen'}}-swiper {{setting.swiperDotIsRound?'round':'square'}}-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="{{setting.theme}}">
+  <swiper-item wx:for="{{4}}" wx:key class="{{cardCur==index?'cur':''}}">
+    <image wx:if="{{!setting.swiperIsCard}}" src="https://image.weilanwl.com/img/4x3-{{index+1}}.jpg" mode='aspectFill'></image>
+    <view wx:if="{{setting.swiperIsCard}}" class='bg-img shadow-blur' style="background-image:url(https://image.weilanwl.com/img/4x3-{{index+1}}.jpg)"></view>
+  </swiper-item>
+</swiper>
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='icon-titles text-{{setting.theme}} '></text> 学习
+  </view>
+</view>
+<view class="cu-list grid col-{{setting.gridCol}} {{setting.gridBorder?'':'no-border'}}">
+  <view class="cu-item" bindtap='naviTo'  data-path='{{item.path}}' wx:for="{{studyIconList}}" wx:key wx:if="{{index<setting.gridCol*1}}">
+    <view class='icon-{{item.icon}} text-{{item.color}}'>
+      <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+        <block wx:if="{{item.badge!=1}}">{{item.badge>99?'99+':item.badge}}</block>
+      </view>
+    </view>
+    <text>{{item.name}}</text>
+  </view>
+</view>
+
+<view class="cu-bar margin-top-sm bg-white solid-bottom">
+  <view class='action'>
+    <text class='icon-titles text-{{setting.theme}} '></text> 学习
+  </view>
+</view>
+<view class="cu-list grid col-{{setting.gridCol}} {{setting.gridBorder?'':'no-border'}}">
+  <view class="cu-item" bindtap='naviTo' data-path='{{item.path}}' wx:for="{{lifeIconList}}" wx:key wx:if="{{index<setting.gridCol*2}}">
+    <view class='icon-{{item.icon}} text-{{item.color}}'>
+      <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+        <block wx:if="{{item.badge!=1}}">{{item.badge>99?'99+':item.badge}}</block>
+      </view>
+    </view>
+    <text>{{item.name}}</text>
+  </view>
+</view>
+
+<view class='cu-load load-modal' wx:if="{{showLoadModal}}"> 
+    <!-- <view class='icon-emojifill text-orange'></view> -->
+    <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='text-{{setting.theme}}'></view>
+    <text class='text-orange'>{{loadingModal.message}}</text>
+</view>
+
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class='content'>{{basicModal.title}}</view>
+      <view class='action' bindtap='hideModal'>
+        <text class='icon-close text-red'></text>
+      </view>
+    </view>
+    <view class='padding-xl'>
+      {{basicModal.message}}
+    </view>
+  </view>
+</view>
+
+<!-- bindtap="showModal" data-target="Image" -->
+<view class="cu-modal {{modalName=='Image'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="bg-img" style="background-image: url({{imageModal.imgurl}});height:200px;">
+      <view class="cu-bar justify-end text-white">
+        <view class='action' bindtap='hideModal'>
+          <text class='icon-close '></text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class='action margin-0 flex-sub  solid-left' bindtap='hideModal'>{{imageModal.confirm}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='cu-tabbar-height'></view>
