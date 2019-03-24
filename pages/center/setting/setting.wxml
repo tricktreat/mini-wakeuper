@@ -8,7 +8,7 @@
 </view>
 <view class="cu-bar bg-white solid-bottom margin-top">
   <view class='action'>
-    <text class='icon-title text-orange '></text> 主题配色
+    <text class='icon-titles text-{{setting.theme}} '></text> 主题配色
   </view>
   <view class='action'>
     <button class='cu-btn bg-green shadow' bindtap="showModal" data-target='themeModel'>设置</button>
@@ -30,7 +30,7 @@
 </view>
 <view class="cu-bar bg-white solid-bottom">
   <view class='action'>
-    <text class='icon-titles text-orange '></text> 圈子卡片样式
+    <text class='icon-titles text-{{setting.theme}} '></text> 圈子卡片样式
   </view>
   <view class='action'>
     <switch class='sm' checked='{{setting.circleIsCard}}' bindchange='settingChange' data-type='circleIsCard'></switch>
@@ -39,7 +39,7 @@
 
 <view class="cu-bar bg-white">
   <view class='action'>
-    <text class='icon-title text-pink'></text> 轮播卡片样式
+    <text class='icon-titles text-{{setting.theme}}'></text> 轮播卡片样式
   </view>
   <view class='action'>
     <switch class='sm' checked='{{setting.swiperIsCard}}' bindchange='settingChange' data-type='swiperIsCard'></switch>
@@ -47,7 +47,7 @@
 </view>
 <view class="cu-bar bg-white">
   <view class='action'>
-    <text class='icon-title text-pink'></text> 轮播圆形样式
+    <text class='icon-titles text-{{setting.theme}}'></text> 轮播圆形样式
   </view>
   <view class='action'>
     <switch class='sm' checked='{{setting.swiperDotIsRound}}' bindchange='settingChange' data-type='swiperDotIsRound'></switch>
@@ -55,7 +55,7 @@
 </view>
 <view class="cu-bar bg-white solid-bottom margin-top">
   <view class='action'>
-    <text class='icon-title text-orange '></text> 应用列表样式
+    <text class='icon-titles text-{{setting.theme}} '></text> 应用列表样式
   </view>
   <view class='action'>
     <button class='cu-btn bg-green shadow' bindtap="showModal" data-target='gridModal'>设置</button>

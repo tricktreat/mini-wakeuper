@@ -1,0 +1,57 @@
+<!--pages/index/member/member.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-{{setting.theme}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 社团成员
+    </navigator>
+  </view>
+</view>
+
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class='search-form round'>
+    <text class="icon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" bindconfirm='confirmSearch' confirm-type="search"></input>
+  </view>
+  <!-- <view class='action'>
+    <button class='cu-btn bg-gradual-{{setting.theme}} shadow-blur round' bindtap='confirmSearch'>搜索</button>
+  </view> -->
+</view>
+<!-- <scroll-view scroll-y class="indexes" scroll-into-view="indexes-{{listCurID}}" style='height:calc(100vh - {{CustomBar}}px - 50px)' scroll-with-animation="true" enable-back-to-top="true">
+  <block wx:for="{{list}}" wx:key>
+    <view class='padding indexItem-{{list[index]}}' id="indexes-{{list[index]}}" data-index="{{list[index]}}">{{list[index]}}</view>
+    <view class="cu-list menu menu-avatar no-padding">
+      <view class="cu-item" wx:for="{{2}}" wx:key wx:for-index="sub">
+        <view class="cu-avatar round lg">{{list[index]}}</view>
+        <view class='content'>
+          <view class='text-grey'>{{list[index]}}<text class='text-abc'>{{list[sub]}}</text>君</view>
+          <view class='text-gray text-sm'>
+            有{{sub+2}}个主子需要伺候
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</scroll-view>
+<view class='indexBar' style='height:calc(100vh - {{CustomBar}}px - 50px)'>
+  <view class='indexBar-box' bindtouchstart="tStart" bindtouchend="tEnd" catchtouchmove="tMove">
+    <view class="indexBar-item " wx:for="{{list}}" wx:key id='{{index}}' bindtouchstart="getCur" bindtouchend="setCur">{{list[index]}}</view>
+  </view>
+</view>
+<view hidden="{{hidden}}" class="indexToast">
+  {{listCur}}
+</view>
+ -->
+<scroll-view scroll-y class="indexes" scroll-into-view="indexes-{{listCurID}}" style='height:calc(100vh - {{CustomBar}}px - 50px)' scroll-with-animation="true" enable-back-to-top="true">
+  <view class="cu-list menu menu-avatar no-padding">
+    <view class="cu-item" wx:for="{{memberList}}" wx:key>
+    <image src='{{item.avatarUrl}}' class='cu-avatar lg round' mode='widthFix'></image>
+      <!-- <view class="cu-avatar round lg">{{item.avatarUrl}}</view> -->
+      <view class='content'>
+        <view class='text-grey'>{{item.name}}</view>
+        <view class='text-gray text-sm'>
+          {{item.master?item.department+'-'+item.master:"比较懒，没有设置专业信息"}}
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

@@ -15,13 +15,16 @@ Page({
   },
   getSigninRank(type){
     let para={}
+    let now = new Date()
+    let year = now.getFullYear().toString()
+    let month = (now.getMonth() + 1).toString()
+    let date = now.getDate().toString()
+
     if(type=="day"){
-      para["date"] = new Date().setHours(0, 0, 0, 0)
+      para["date"] = year + "-" + (month[1] ? month : '0' + month) + "-" + (date[1] ? date : '0' + date)
     }
     if(type=="month"){
-      let now = new Date()
-      let today= new Date(now.setDate(0))
-      para["month"] = today.setHours(0, 0, 0, 0)
+      para["month"] = year + "-" + (month[1] ? month : '0' + month) + "-01"
     }
     wx.request({
       url: app.globalData.baseUrl + 'signin/' + type,

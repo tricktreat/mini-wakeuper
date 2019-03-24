@@ -46,25 +46,26 @@ Component({
         badge: 0,
         name: '通知'
       }, {
-        icon: 'loading2',
+        icon: 'peoplefill',
         color: 'blue',
         badge: 0,
-        name: '开发中'
+        name: '社团成员',
+        path: "/pages/index/member/member"
       }, {
         icon: 'loading2',
         color: 'purple',
         badge: 0,
         name: '开发中'
       }, {
-        icon: 'questionfill',
+        icon: 'loading2',//'questionfill',
         color: 'mauve',
         badge: 0,
-        name: '帮助'
+        name: '开发中',//'帮助'
       }, {
-        icon: 'commandfill',
+        icon: 'loading2',//'commandfill',
         color: 'purple',
         badge: 0,
-        name: '问答'
+        name: '开发中',//'问答'
       }, {
         icon: 'loading2',
         color: 'mauve',
@@ -157,12 +158,15 @@ Component({
           return
         }
         let now = new Date()
+        // console.log(now)
         let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+        // console.log(today)
+
         // let today = new Date(new Date().setHours(0, 0, 0, 0))
         let dur = now - today
         if (dur > app.globalData.signInStart && dur < app.globalData.signInEnd){
           wx.request({
-            data: { openId: this.data.userInfo.openId, signTime: now.getTime() },
+            data: { openId: this.data.userInfo.openId, signTime: now.toUTCString() },
             method:"post",
             url: app.globalData.baseUrl + 'signin',
             success: res => {
@@ -178,12 +182,12 @@ Component({
           })
         }else{
           let end = new Date(app.globalData.signInEnd)
-          start.getHours() + ":" + start.getMinutes()
+          let start = new Date(app.globalData.signInStart)
           setTimeout(() => {
             this.setData({
               showLoadModal: false,
               modalName:"Modal",
-              basicModal: { title: "签到失败", message: "每天" + start.toLocaleTimeString() + "-" + end.toLocaleTimeString() + "才可签到哦~"},
+              basicModal: { title: "签到失败", message: "每天" + start.toUTCString().slice(-12, -7) + "-" + end.toUTCString().slice(-12, -7)+ "才可签到哦~"},
             })
           }, 1000)
         }
@@ -204,7 +208,8 @@ Component({
     show() {
       if (typeof this.getTabBar === 'function' && this.getTabBar()) {
         this.getTabBar().setData({
-          selected: 0
+          selected: 0,
+          setting: app.globalData.setting
         })
       }
     }

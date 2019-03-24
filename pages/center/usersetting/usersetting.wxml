@@ -7,29 +7,26 @@
   </view>
 </view>
 
-<form>
-
+<form bindsubmit="formSubmit" report-submit>
   <view class="cu-form-group margin-top">
-    <view class='title'>签名</view>
-    <input placeholder="{{userInfo.motto?userInfo.motto:'未设置'}}" class='radius' name='input'></input>
+    <view class='title'>姓名</view>
+    <input bindinput='setInput' placeholder="{{name?name:'未设置'}}" class='radius' name='input' data-type='name'></input>
   </view>
   <view class="cu-form-group">
-    <view class='title'>手机</view>
-    <input placeholder="{{userInfo.phoneNumber?userInfo.phoneNumber:'未设置'}}" class='radius' name='input'></input>
-  </view>
-  <view class="cu-form-group">
-    <view class='title'>专业</view>
-    <input placeholder="{{userInfo.master?userInfo.master:'未设置'}}" class='radius' name='input'></input>
+    <view class='title'>学号</view>
+    <input bindinput='setInput' placeholder="{{studentId?studentId:'未设置'}}" class='radius' name='input' data-type='studentId'></input>
   </view>
     <view class="cu-form-group">
-    <view class='title'>学院</view>
-    <input placeholder="{{userInfo.department?userInfo.department:'未设置'}}" class='radius' name='input'></input>
+    <view class='title'>手机</view>
+    <input bindinput='setInput' placeholder="{{phoneNumber?phoneNumber:'未设置'}}" class='radius' name='input' data-type='phoneNumber'></input>
   </view>
-  <view class="cu-form-group">
-    <view class='title'>校区</view>
-    <input placeholder="{{userInfo.campus?userInfo.motto:'未设置'}}" class='radius' name='input'></input>
-    <text class='icon-locationfill text-orange'></text>
+  <view class="cu-form-group ">
+    <view class='title'>签名</view>
+    <input bindinput='setInput' placeholder="{{motto?motto:'未设置'}}" class='radius' data-type='motto'></input>
   </view>
+
+
+
   <!-- <view class="cu-form-group">
     <view class='title'>验证码</view>
     <input placeholder="输入框带个按钮" class='radius' name='input'></input>
@@ -49,35 +46,36 @@
   </view> -->
 
 
-  <view class="cu-form-group margin-top">
+  <view class="cu-form-group">
     <view class='title'>校区</view>
-    <picker bindchange="pickerChange" value="{{index}}" range="{{picker}}">
-      <view class="picker"> 
-        {{index?picker[index]:"未设置"}}
+    <picker bindchange="pickerChange" data-type='campus' data-container='campusPicker' range="{{campusPicker}}">
+      <view class="picker">
+        {{campus?campus:"未设置"}}
+      </view>
+    </picker>
+  </view>
+
+  <view class="cu-form-group">
+    <view class='title'>专业</view>
+    <picker mode="multiSelector" bindchange="multiChange" bindcolumnchange="multiColumnChange" range="{{multiArray}}">
+      <view class="picker">
+        {{master?department+'，'+master:'未设置'}}
       </view>
     </picker>
   </view>
   <!-- <view class="cu-form-group">
-    <view class='title'>多列选择</view>
-    <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-      <view class="picker">
-        {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
-      </view>
-    </picker>
-  </view> -->
-  <view class="cu-form-group">
     <view class='title'>时间选择</view>
     <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
       <view class="picker">
         {{time}}
       </view>
     </picker>
-  </view>
+  </view> -->
   <view class="cu-form-group">
     <view class='title'>生日</view>
-    <picker mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
+    <picker mode="date" start="1980-1-1" end="2020-12-12" bindchange="pickerChange" data-type='birthday'>
       <view class="picker">
-        {{date}}
+        {{birthday?birthday:'未设置'}}
       </view>
     </picker>
   </view>
@@ -90,7 +88,7 @@
     </picker>
   </view> -->
 
-  <view class="cu-form-group margin-top">
+  <!-- <view class="cu-form-group margin-top">
     <view class='title'>开关选择</view>
     <switch></switch>
   </view>
@@ -99,7 +97,7 @@
     <switch class='red sm' checked></switch>
   </view>
   <view class="cu-form-group">
-    <switch class='switch-sex' checked></switch>
+    <switch class='switch-sex' checked="{{userInfo.gender==0?'true':''}}" disabled></switch>
     <view class='title'>定义图标</view>
   </view>
   <view class="cu-form-group">
@@ -122,9 +120,12 @@
         <radio class='red margin-left-sm'></radio>
       </view>
     </view>
-  </radio-group>
-
-  <view class="cu-form-group margin-top">
+  </radio-group> -->
+    <view class="cu-form-group top">
+    <view class='title'>标签</view>
+    <textarea placeholder="{{tag?tag:'每行输入一个标签，最多不超过三个'}}" maxlength="12" placeholder-class='placeholder' bindinput='setInput' data-type='tag'></textarea>
+  </view>
+  <!-- <view class="cu-form-group margin-top">
     <view class='title'>复选选操作(checkbox)</view>
     <checkbox></checkbox>
   </view>
@@ -156,8 +157,8 @@
   <view class="cu-form-group top" wx:hide="{{modalName==null}}">
     <view class='title'>点文本框</view>
     <textarea placeholder="多行文本输入框" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class='placeholder'></textarea>
-  </view>
-<!-- 
+  </view> -->
+  <!-- 
   <view class="cu-form-group margin-top">
     <view class='title'>多级联动</view>
     <picker mode="region" bindchange="RegionChange" value="{{region}}" custom-item="{{customItem}}">
@@ -166,4 +167,21 @@
       </view>
     </picker>
   </view> -->
+  <view class="padding">
+    <button form-type='submit' class='cu-btn block bg-{{setting.theme}} margin-tb-sm lg' type=''>保存</button>
+  </view>
 </form>
+
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class='content'>{{basicModal.title}}</view>
+      <view class='action' bindtap='hideModal'>
+        <text class='icon-close text-red'></text>
+      </view>
+    </view>
+    <view class='padding-xl'>
+      {{basicModal.message}}
+    </view>
+  </view>
+</view>

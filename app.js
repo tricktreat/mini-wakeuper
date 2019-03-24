@@ -25,11 +25,12 @@ App({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
                       // 拿到最新的微信用户数据，静默更新到数据库，并且合并原来数据库中的手动设置的用户线信息字段
+                      res.userInfo.avatarUrl = res.userInfo.avatarUrl.replace(/\.wx\./,".thirdwx.")
                       Object.assign(this.globalData.userInfo, res.userInfo)
                       wx.request({
                         method: "POST",
                         url: this.globalData.baseUrl + 'userinfo/updateuser',
-                        data: this.globalData.userInfo,
+                        data: Object.assign({ openId: this.globalData.userInfo.openId }, res.userInfo),
                         success: res => {
                           // console.log(res)
                         }
@@ -76,9 +77,9 @@ App({
   },
   globalData: {
     userInfo: null,
-    baseUrl: "http://localhost:8899/",
-    signInStart: 3600 * 1000 * 0,
-    signInEnd: 3600 * 1000 * 24 + 20 * 60 * 1000,
+    baseUrl: "https://app4.aobtain.cn/wakeup/", //"http://localhost:8888/",//
+    signInStart: 3600 * 1000 * 6,
+    signInEnd: 3600 * 1000 * 7 + 20 * 60 * 1000,
     setting: wx.getStorageSync('setting') || { "theme": "green", "circleIsCard": false, "swiperIsCard": false, "swiperDotIsRound": false, "gridCol": 4, "gridBorder": 0, }
   }
 })

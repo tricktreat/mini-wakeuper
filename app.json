@@ -9,7 +9,8 @@
     "pages/center/timeline/timeline",
     "pages/index/signin/signin",
     "pages/index/rank/rank",
-    "pages/center/usersetting/usersetting"
+    "pages/center/usersetting/usersetting",
+    "pages/index/member/member"
   ],
   "window": {
     "backgroundTextStyle": "light",

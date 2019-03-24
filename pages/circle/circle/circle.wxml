@@ -4,8 +4,7 @@
   </view>
 </view>
 
-
-<view class="cu-card dynamic {{setting.isCard?'no-card':''}}">
+<view class="cu-card dynamic {{setting.circleIsCard?'':'no-card'}}">
   <view wx:for="1" wx:key class="cu-item shadow">
     <view class="cu-list menu menu-avatar">
       <view class="cu-item">
