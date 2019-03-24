@@ -40,12 +40,12 @@
   </view>
   <view class='flex flex-sub flex-direction solid-right'>
     <view class="margin-top-sm">
-      <text class='icon-like text-red'> {{12}} Likes</text>
+      <text class='icon-like text-red'> {{userInfo.like}} Likes</text>
     </view>
   </view>
   <view class='flex flex-sub flex-direction'>
     <view class="margin-top-sm">
-      <text class='icon-moneybag text-orange'> {{125}} Corns</text>
+      <text class='icon-moneybag text-orange'> {{userInfo.corn}} Corns</text>
     </view>
   </view>
 </view>
@@ -85,7 +85,7 @@
       <text class='text-grey'>主题设置</text>
     </view>
   </navigator>
-  <navigator class="cu-item arrow" url='../about/about' hover-class='none'>
+  <navigator class="cu-item arrow" url='../usersetting/usersetting' hover-class='none'>
       <view class='content'>
         <text class='icon-settings text-red'></text>
         <text class='text-grey'>资料设置</text>

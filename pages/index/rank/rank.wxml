@@ -16,25 +16,53 @@
   <view class="cu-item {{'day'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="day">
     <text class='icon-timefill'></text> 日榜
   </view>
-  <view class="cu-item {{'month'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-id="month">
+  <view class="cu-item {{'month'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="month">
     <text class='icon-rankfill'></text> 月榜
   </view>
-  <view class="cu-item {{'all'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-id="all">
+  <view class="cu-item {{'all'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="all">
     <text class='icon-upstagefill'></text> 总榜
   </view>
 </scroll-view>
 
 <view class="cu-list menu menu-avatar margin-top-sm">
   <view class="cu-item" wx:for="{{rankList}}" wx:key>
-    <view class="cu-avatar radius lg" style="background-image:url({{item.user.avatarUrl}});"></view>
-    <view class='content'>
-      <view>{{item.user.nickName}}</view>
-      <view class='text-gray text-sm'>
-        {{item.user.motto}}</view>
-    </view>
-    <view class='action'>
-      <view class='text-grey text-xs'>{{item.signTime}}</view>
-      <view class="cu-tag round bg-{{setting.theme}} sm">5</view>
-    </view>
+    <block wx:if="{{curTab=='day'}}">
+      <view class="cu-avatar radius lg" style="background-image:url({{item.user.avatarUrl}});"></view>
+      <view class='content'>
+        <view>{{item.user.nickName}}</view>
+        <view class='text-gray text-sm'>
+          {{item.user.motto}}</view>
+      </view>
+      <view class='action'>
+        <view class='text-grey text-xs'>{{item.signTime}}</view>
+        <view class="cu-tag round bg-{{setting.theme}} sm">+{{item.corn}}</view>
+      </view>
+    </block>
+
+    <block wx:if="{{curTab=='month'}}">
+      <view class="cu-avatar radius lg" style="background-image:url({{item.avatarUrl}});"></view>
+      <view class='content'>
+        <view>{{item.nickName}}</view>
+        <view class='text-gray text-sm'>
+          {{item.motto}}</view>
+      </view>
+      <view class='action'>
+        <!-- <view class='text-grey text-xs'>{{item.signTime}}</view> -->
+        <view class="cu-tag round bg-{{setting.theme}} sm">本月累计签到{{item.signinfos.length}}天</view>
+      </view>
+    </block>
+
+    <block wx:if="{{curTab=='all'}}">
+      <view class="cu-avatar radius lg" style="background-image:url({{item.avatarUrl}});"></view>
+      <view class='content'>
+        <view>{{item.nickName}}</view>
+        <view class='text-gray text-sm'>
+          {{item.motto}}</view>
+      </view>
+      <view class='action'>
+        <!-- <view class='text-grey text-xs'>{{item.signTime}}</view> -->
+        <view class="cu-tag round bg-{{setting.theme}} sm">累计签到{{item.signinfos.length}}天</view>
+      </view>
+    </block>
   </view>
 </view>

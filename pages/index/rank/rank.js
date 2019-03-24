@@ -14,12 +14,25 @@ Page({
     this.getSigninRank("day")
   },
   getSigninRank(type){
+    let para={}
+    if(type=="day"){
+      para["date"] = new Date().setHours(0, 0, 0, 0)
+    }
+    if(type=="month"){
+      let now = new Date()
+      let today= new Date(now.setDate(0))
+      para["month"] = today.setHours(0, 0, 0, 0)
+    }
     wx.request({
       url: app.globalData.baseUrl + 'signin/' + type,
-      data: { date: new Date().setHours(0, 0, 0, 0) },
+      data: para,
       success: res => {
+        let _ranklist = res.data.data
+        for (let item of _ranklist){
+          item.signTime = new Date(item.signTime).toLocaleTimeString()
+        }
         this.setData({
-          rankList: res.data.data
+          rankList: _ranklist
         })
       }
     })

@@ -6,6 +6,7 @@ Component({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
+    swiperList:[],
     userInfo: {},
     setting: {},
     showLoadModal:0,
@@ -100,6 +101,14 @@ Component({
           })
         }
       }
+      wx.request({
+        url: app.globalData.baseUrl +'swiperimage',
+        success:res=>{
+          this.setData({
+            swiperList:res.data.data
+          })
+        }
+      })
       // else {
       //   // 在没有 open-type=getUserInfo 版本的兼容处理
       //   wx.getUserInfo({
@@ -137,7 +146,16 @@ Component({
         this.setData({
           showLoadModal: true
         })
-
+        if(this.data.userInfo.signinfos.length>0){
+          setTimeout(() => {
+            this.setData({
+              showLoadModal: false,
+              modalName: "Modal",
+              basicModal: { title: "签到失败", message: "今天已经签过到了哦~" },
+            })
+          }, 1000)
+          return
+        }
         let now = new Date()
         let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
         // let today = new Date(new Date().setHours(0, 0, 0, 0))
@@ -148,22 +166,24 @@ Component({
             method:"post",
             url: app.globalData.baseUrl + 'signin',
             success: res => {
+              app.refreshUserInfo({ openId: this.data.userInfo.openId},this)
               setTimeout(() => {
                 this.setData({
-                  showLoadModal: false
+                  showLoadModal: false,
+                  modalName: "Modal",
+                  basicModal: { title: "签到成功", message: "继续加油哦~" },
                 })
               }, 1000)
             }
           })
         }else{
-          let start=new Date(app.globalData.signInStart)
           let end = new Date(app.globalData.signInEnd)
           start.getHours() + ":" + start.getMinutes()
           setTimeout(() => {
             this.setData({
               showLoadModal: false,
               modalName:"Modal",
-              basicModal: { title: "签到失败", message: "每天" + (start.getHours() - 8) + ":" + (start.getMinutes() < 10 ? "0"+start.getMinutes():start.getMinutes()) + "-" + (end.getHours()-8) + ":" + end.getMinutes() + "才可签到哦~"},
+              basicModal: { title: "签到失败", message: "每天" + start.toLocaleTimeString() + "-" + end.toLocaleTimeString() + "才可签到哦~"},
             })
           }, 1000)
         }

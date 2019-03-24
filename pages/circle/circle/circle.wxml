@@ -9,17 +9,17 @@
   <view wx:for="1" wx:key class="cu-item shadow">
     <view class="cu-list menu menu-avatar">
       <view class="cu-item">
-        <view class="cu-avatar round lg" style="background-image:url(https://image.weilanwl.com/img/square-1.jpg);"></view>
+        <view class="cu-avatar round lg" style="background-image:url(https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLjPKytMIH0ScYnERoTMTSZgQmyiaHgH0XTwgrwVS1MQvjBEpym5mrVIq8ibibiahhd0dkNHhKGdjkeCQ/132);"></view>
         <view class='content flex-sub'>
-          <view>晓晓萌</view>
+          <view>沈永亮</view>
           <view class='text-gray text-sm flex justify-between'>
-            2018年12月3日
+            2019年3月23日
           </view>
         </view>
       </view>
     </view>
     <view class='text-content'>
-      你们的铲屎官是不是经常突然对手机傻笑？我家铲屎官常常坐沙发上笑的发抖！（暗中观察.jpg）
+      开发中.............
     </view>
     <view class="grid {{isCard?'col-3 grid-square':'col-1'}} flex-sub padding-lr">
       <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://image.weilanwl.com/img/square-1.jpg);" wx:for="{{isCard?9:1}}" wx:key>
@@ -32,20 +32,20 @@
     </view>
     <view class="cu-list menu menu-avatar comment solids-top">
       <view class="cu-item" wx:for="{{2}}" wx:key>
-        <view class="cu-avatar round" style="background-image:url(https://image.weilanwl.com/img/square-1.jpg);"></view>
+        <view class="cu-avatar round" style="background-image:url(https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLjPKytMIH0ScYnERoTMTSZgQmyiaHgH0XTwgrwVS1MQvjBEpym5mrVIq8ibibiahhd0dkNHhKGdjkeCQ/132);"></view>
         <view class='content'>
-          <view class='text-grey'>猪皮蛋</view>
+          <view class='text-grey'>永亮沈</view>
           <view class='text-gray text-content text-df'>
-            我家铲屎官不舔毛，还抠脚！
+            想睡觉...
           </view>
           <view class='bg-grey padding-sm radius margin-top-sm  text-sm' wx:if="{{index==1}}">
             <view class="flex {{index!=0?'margin-top-sm':'' }}" wx:for="{{2}}" wx:key>
               <view>我：</view>
-              <view class='flex-sub'>我家的铲屎官也不舔毛！</view>
+              <view class='flex-sub'>想睡觉！</view>
             </view>
           </view>
           <view class='margin-top-sm flex justify-between'>
-            <view class='text-gray text-df'>2018年12月4日</view>
+            <view class='text-gray text-df'>2019年3月23日</view>
             <view>
               <text class="icon-appreciate{{!isZan?'fill':''}} text-{{!isZan?'red':'gray'}}"></text>
               <text class="icon-messagefill text-gray margin-left-sm"></text>

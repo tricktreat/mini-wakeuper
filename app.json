@@ -8,7 +8,8 @@
     "pages/center/setting/setting",
     "pages/center/timeline/timeline",
     "pages/index/signin/signin",
-    "pages/index/rank/rank"
+    "pages/index/rank/rank",
+    "pages/center/usersetting/usersetting"
   ],
   "window": {
     "backgroundTextStyle": "light",

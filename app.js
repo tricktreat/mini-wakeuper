@@ -1,18 +1,20 @@
 //app.js
 App({
-  onLaunch: function() {
+  onLaunch: function () {
     // 登录
     wx.login({
       success: res => {
-        let data = { "appid": "wxce0af3f23f9eee19", "secret": "3597e6cfb8339a61cacb77ced622d3f3", "js_code": res.code}
+        let data = { "appid": "wxce0af3f23f9eee19", "secret": "3597e6cfb8339a61cacb77ced622d3f3", "js_code": res.code }
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
           // 这里将res.code送到后台，在数据库注册用户（首次使用）或者拉取数据库中的用户信息。
-          method:"GET",
-          data:data,
-          url: this.globalData.baseUrl +'userinfo/register',
-          success:res=>{
-            this.globalData.userInfo=res.data
+          method: "GET",
+          data: data,
+          url: this.globalData.baseUrl + 'userinfo/register',
+          success: res => {
+
+            this.globalData.userInfo = res.data.data
+
             // console.log(this.globalData.userInfo)
             // 获取用户信息
             wx.getSetting({
@@ -25,10 +27,10 @@ App({
                       // 拿到最新的微信用户数据，静默更新到数据库，并且合并原来数据库中的手动设置的用户线信息字段
                       Object.assign(this.globalData.userInfo, res.userInfo)
                       wx.request({
-                        method:"POST",
-                        url: this.globalData.baseUrl+'userinfo/updateuser',
+                        method: "POST",
+                        url: this.globalData.baseUrl + 'userinfo/updateuser',
                         data: this.globalData.userInfo,
-                        success:res=>{
+                        success: res => {
                           // console.log(res)
                         }
                       })
@@ -58,11 +60,25 @@ App({
       }
     })
   },
+  refreshUserInfo(data, page) {
+    wx.request({
+      // 这里将res.code送到后台，在数据库注册用户（首次使用）或者拉取数据库中的用户信息。
+      method: "GET",
+      data: data,
+      url: this.globalData.baseUrl + 'userinfo',
+      success: res => {
+        this.globalData.userInfo = res.data.data
+        page.setData({
+          userInfo: res.data.data
+        })
+      }
+    })
+  },
   globalData: {
     userInfo: null,
-    baseUrl:"http://localhost:8899/",
-    signInStart: 3600 * 1000 * 6,
+    baseUrl: "http://localhost:8899/",
+    signInStart: 3600 * 1000 * 0,
     signInEnd: 3600 * 1000 * 24 + 20 * 60 * 1000,
-    setting: wx.getStorageSync('setting') || { "theme": "green", "circleIsCard": false, "swiperIsCard": false, "swiperDotIsRound": false, "gridCol": 4, "gridBorder": 0,}
+    setting: wx.getStorageSync('setting') || { "theme": "green", "circleIsCard": false, "swiperIsCard": false, "swiperDotIsRound": false, "gridCol": 4, "gridBorder": 0, }
   }
 })

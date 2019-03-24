@@ -33,8 +33,8 @@ Component({
     },
     showQrcode() {
       wx.previewImage({
-        urls: ['https://image.weilanwl.com/color2.0/zanCode.jpg'],
-        current: 'https://image.weilanwl.com/color2.0/zanCode.jpg'   
+        urls: ['https://blog.ibilidi.cn/images/wechat.jpg'],
+        current: 'https://blog.ibilidi.cn/images/wechat.jpg'   
       })
     },
     CopyLink(e) {

@@ -8,12 +8,8 @@
 </view>
 
 <view class='margin-xl bg-white padding-xl radius shadow-lg'>
-  <view class='text-center margin-bottom text-lg  text-grey'>关于WakeUp俱乐部</view>
+  <view class='text-center margin-bottom text-lg  text-grey'>{{aboutUs.title}}</view>
   <view class='text-content'>
-    <view>Hi！阳光的你~欢迎来到WakeUp俱乐部活动社区！</view>
-    <view class='margin-top-sm'>WakeUp俱乐部创立于2014年</view>
-    <view class='margin-top-sm'>社团简介</view>
-    <view class='margin-top-sm'>社团活动介绍</view>
-    <view class='margin-top-sm'>展望未来</view>
+    <view wx:for="{{aboutUs.paras}}" wx:key class='margin-top-sm'>{{item.content}}</view>
   </view>
 </view>
