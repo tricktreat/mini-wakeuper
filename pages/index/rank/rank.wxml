@@ -1,35 +1,41 @@
 <!--pages/index/rank/rank.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-gradual-{{setting.theme}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 排行榜
-    </navigator>
+<view class="cu-custom bg-gradual-{{setting.theme}}" style="height:calc({{CustomBar+50}}px+90rpx)">
+  <view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed " style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+      <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+        <text class='icon-back'></text> 排行榜
+      </navigator>
+    </view>
   </view>
+  <scroll-view scroll-x class="nav text-center">
+    <view class="cu-item {{'day'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="day">
+      <text class='icon-timefill'></text> 日榜
+    </view>
+    <view class="cu-item {{'month'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="month">
+      <text class='icon-rankfill'></text> 月榜
+    </view>
+    <view class="cu-item {{'all'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="all">
+      <text class='icon-upstagefill'></text> 总榜
+    </view>
+  </scroll-view>
 </view>
-
 <!-- <scroll-view scroll-x class="bg-white nav text-center">
   <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{3}}" wx:key bindtap='tabSelect' data-id="{{index}}">
     Tab{{index}}
   </view>
 </scroll-view> -->
-<scroll-view scroll-x class="bg-gradual-{{setting.theme}} nav text-center">
-  <view class="cu-item {{'day'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="day">
-    <text class='icon-timefill'></text> 日榜
-  </view>
-  <view class="cu-item {{'month'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="month">
-    <text class='icon-rankfill'></text> 月榜
-  </view>
-  <view class="cu-item {{'all'==curTab?'text-white cur':''}}" bindtap='tabSelect' data-type="all">
-    <text class='icon-upstagefill'></text> 总榜
-  </view>
-</scroll-view>
 
-<view class="cu-list menu menu-avatar margin-top-sm">
+
+<view class="cu-list menu menu-avatar margin-top-sm" style="height:calc(100vh - {{CustomBar}}px - 50px)" bindtouchmove="handletouchmove" bindtouchstart='handletouchtart' bindtouchend='handletouchend'>
   <view class="cu-item" wx:for="{{rankList}}" wx:key>
     <block wx:if="{{curTab=='day'}}">
       <view class="cu-avatar radius lg" style="background-image:url({{item.user.avatarUrl}});"></view>
       <view class='content'>
-        <view>{{item.user.nickName}}</view>
+        <view>{{item.user.name?item.user.name:item.user.nickName}}
+          <view wx:if="{{item.user.department}}" class='cu-tag radius sm margin-left-xs' style="margin-top:0">
+            {{item.user.department}}
+          </view>
+        </view>
         <view class='text-gray text-sm'>
           {{item.user.motto}}</view>
       </view>
@@ -42,7 +48,11 @@
     <block wx:if="{{curTab=='month'}}">
       <view class="cu-avatar radius lg" style="background-image:url({{item.avatarUrl}});"></view>
       <view class='content'>
-        <view>{{item.nickName}}</view>
+        <view>{{item.name?item.name:item.nickName}}
+          <view wx:if="{{item.department}}" class='cu-tag radius sm margin-left-xs' style="margin-top:0">
+            {{item.department}}
+          </view>
+        </view>
         <view class='text-gray text-sm'>
           {{item.motto}}</view>
       </view>
@@ -55,7 +65,11 @@
     <block wx:if="{{curTab=='all'}}">
       <view class="cu-avatar radius lg" style="background-image:url({{item.avatarUrl}});"></view>
       <view class='content'>
-        <view>{{item.nickName}}</view>
+        <view>{{item.name?item.name:item.nickName}}
+                  <view wx:if="{{item.department}}" class='cu-tag radius sm margin-left-xs' style="margin-top:0">
+            {{item.department}}
+          </view>
+        </view>
         <view class='text-gray text-sm'>
           {{item.motto}}</view>
       </view>

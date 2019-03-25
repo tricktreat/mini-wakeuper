@@ -74,10 +74,27 @@
 </view>
 
 <!-- bindtap="showModal" data-target="Image" -->
-<view class="cu-modal {{modalName=='Image'?'show':''}}">
+<view class="cu-modal {{(today===birthday&&showBirthday)?'show':''}}">
   <view class="cu-dialog">
-    <view class="bg-img" style="background-image: url({{imageModal.imgurl}});height:200px;">
-      <view class="cu-bar justify-end text-white">
+    <view class="bg-img" style="background-image: url({{imageModal.imgurl}});height:170px;">
+      <view class="cu-bar justify-end text-{{setting.theme}}">
+        <view class='action' bindtap='hideBirthdayModal'>
+          <text class='icon-close '></text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class='action margin-0 flex-sub  solid-left' bindtap='hideBirthdayModal'>{{imageModal.confirm}}</view>
+    </view>
+  </view>
+</view>
+
+
+<!-- bindtap="showModal" data-target="Image" -->
+<view class="cu-modal {{(modalName=='Image')?'show':''}}">
+  <view class="cu-dialog">
+    <view class="bg-img" style="background-image: url({{imageModal.imgurl}});height:170px;">
+      <view class="cu-bar justify-end text-{{setting.theme}}">
         <view class='action' bindtap='hideModal'>
           <text class='icon-close '></text>
         </view>

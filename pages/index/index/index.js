@@ -6,15 +6,17 @@ Component({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    swiperList:[],
+    swiperList: [],
     userInfo: {},
     setting: {},
-    showLoadModal:0,
-    modalName:null,
+    showLoadModal: 0,
+    modalName: null,
     loadingModal: { message: "请稍后..." },
-    imageModal: { imgurl:"https://albedo-theme.com/wp-content/uploads/2016/08/pexels-photo-26180.jpg",confirm:"我知道了"},
-    basicModal:{title:"Modal标题",message:"Modal内容"},
-    // hasUserInfo: false,
+    imageModal: { imgurl: "https://blog.ibilidi.cn/images/birthday.jpg", confirm: "谢谢你~" },
+    basicModal: { title: "Modal标题", message: "Modal内容" },
+    today: "99-99",
+    birthday: "00-00",
+    // hasUserInfo: false, https://albedo-theme.com/wp-content/uploads/2016/08/pexels-photo-26180.jpg
     // canIUse: wx.canIUse('button.open-type.getUserInfo')
     studyIconList: [{
       icon: 'hotfill',
@@ -75,8 +77,12 @@ Component({
   },
   methods: {
     onLoad: function () {
+      let now = new Date()
+      let month = now.getMonth() + 1
+      let date = now.getDate()
       this.setData({
-        setting: app.globalData.setting
+        setting: app.globalData.setting,
+        today: (month > 9 ? month.toString() : '0' + month.toString()) + "-" + (date > 9 ? date.toString() : '0' + date.toString())
       })
       wx.getSetting({
         success: res => {
@@ -90,6 +96,7 @@ Component({
       if (app.globalData.userInfo) {
         this.setData({
           userInfo: app.globalData.userInfo,
+          birthday: app.globalData.userInfo.birthday.slice(5, 7) + "-" + app.globalData.userInfo.birthday.slice(8, 10),
           hasUserInfo: true
         })
       } else {
@@ -98,18 +105,26 @@ Component({
         app.userInfoReadyCallback = res => {
           this.setData({
             userInfo: res,
+            birthday: res.birthday.slice(5, 7) + "-" + res.birthday.slice(8, 10),
             hasUserInfo: true
           })
         }
       }
       wx.request({
-        url: app.globalData.baseUrl +'swiperimage',
-        success:res=>{
+        url: app.globalData.baseUrl + 'swiperimage',
+        success: res => {
           this.setData({
-            swiperList:res.data.data
+            swiperList: res.data.data
           })
         }
       })
+      //设置是否展示生日祝福的缓存过期
+      let expiration = wx.getStorageSync("expiration")
+      if (!expiration || expiration < Date.parse(now)) {
+        this.setData({
+          showBirthday: true
+        })
+      }
       // else {
       //   // 在没有 open-type=getUserInfo 版本的兼容处理
       //   wx.getUserInfo({
@@ -128,15 +143,29 @@ Component({
         setting: app.globalData.setting,
         userInfo: app.globalData.userInfo
       })
+
     },
     showModal(e) {
       this.setData({
-        modalName: e.currentTarget.dataset.target
+        modalName: e.currentTarget.dataset.target,
+
       })
     },
     hideModal(e) {
       this.setData({
-        modalName: null
+        modalName: null,
+      })
+    },
+    //设置是否展示生日祝福的缓存过期
+    hideBirthdayModal(e) {
+      let now = Date.parse(new Date())
+      let expiration = now + 3600 * 1000 * 24
+      wx.setStorage({
+        key: 'expiration',
+        data: expiration,
+      })
+      this.setData({
+        showBirthday: false
       })
     },
     naviTo(e) {
@@ -147,7 +176,7 @@ Component({
         this.setData({
           showLoadModal: true
         })
-        if(this.data.userInfo.signinfos.length>0){
+        if (this.data.userInfo.signinfos.length > 0) {
           setTimeout(() => {
             this.setData({
               showLoadModal: false,
@@ -164,13 +193,13 @@ Component({
 
         // let today = new Date(new Date().setHours(0, 0, 0, 0))
         let dur = now - today
-        if (dur > app.globalData.signInStart && dur < app.globalData.signInEnd){
+        if (dur > app.globalData.signInStart && dur < app.globalData.signInEnd) {
           wx.request({
             data: { openId: this.data.userInfo.openId, signTime: now.toUTCString() },
-            method:"post",
+            method: "post",
             url: app.globalData.baseUrl + 'signin',
             success: res => {
-              app.refreshUserInfo({ openId: this.data.userInfo.openId},this)
+              app.refreshUserInfo({ openId: this.data.userInfo.openId }, this)
               setTimeout(() => {
                 this.setData({
                   showLoadModal: false,
@@ -180,14 +209,14 @@ Component({
               }, 1000)
             }
           })
-        }else{
+        } else {
           let end = new Date(app.globalData.signInEnd)
           let start = new Date(app.globalData.signInStart)
           setTimeout(() => {
             this.setData({
               showLoadModal: false,
-              modalName:"Modal",
-              basicModal: { title: "签到失败", message: "每天" + start.toUTCString().slice(-12, -7) + "-" + end.toUTCString().slice(-12, -7)+ "才可签到哦~"},
+              modalName: "Modal",
+              basicModal: { title: "签到失败", message: "每天" + start.toUTCString().slice(-12, -7) + "-" + end.toUTCString().slice(-12, -7) + "才可签到哦~" },
             })
           }, 1000)
         }

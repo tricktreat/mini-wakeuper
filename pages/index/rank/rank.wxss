@@ -1,1 +1,4 @@
 /* pages/index/rank/rank.wxss */
+page{
+    height: 100vh;
+}

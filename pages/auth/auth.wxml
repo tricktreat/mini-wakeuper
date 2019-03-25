@@ -1,11 +1,11 @@
 <view class='cu-custom' style="height:{{CustomBar}}px;">
   <view class="cu-bar fixed bg-gradual-{{setting.theme}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <view class='content' style='top:{{StatusBar}}px;'>ColorUI 空白模板</view>
+    <view class='content' style='top:{{StatusBar}}px;'>授权用户信息</view>
   </view>
 </view>
 <view class="margin-xl padding-xl bg-white radius shadow-lg">
   <view class="flex justify-center">
-    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-green shadow'> 获取头像昵称 </button>
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-{{setting.theme}} shadow'> 获取头像昵称 </button>
     <block wx:else>
       <view class='text-center'>
         <view class="cu-avatar xl round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>

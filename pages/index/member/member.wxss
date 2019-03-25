@@ -18,12 +18,7 @@ page {
 .indexBar .indexBar-box {
   width: 20px;
   height: auto;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-}
+  background: #fff;}
 
 .indexBar-item {
   flex: 1;

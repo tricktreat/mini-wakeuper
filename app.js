@@ -25,7 +25,7 @@ App({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
                       // 拿到最新的微信用户数据，静默更新到数据库，并且合并原来数据库中的手动设置的用户线信息字段
-                      res.userInfo.avatarUrl = res.userInfo.avatarUrl.replace(/\.wx\./,".thirdwx.")
+                      // res.userInfo.avatarUrl = res.userInfo.avatarUrl.replace(/\.wx\./,".thirdwx.")
                       Object.assign(this.globalData.userInfo, res.userInfo)
                       wx.request({
                         method: "POST",

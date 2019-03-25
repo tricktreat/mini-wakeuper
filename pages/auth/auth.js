@@ -6,7 +6,7 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    motto: 'Hi 开发者！',
+    motto: '欢迎使用wakeup俱乐部活动平台',
     userInfo: {},
     setting:{},
     hasUserInfo: false,

@@ -8,6 +8,7 @@ Page({
     hidden: true
   },
   onLoad: function () {
+
     this.setData({
       setting: app.globalData.setting,
     })

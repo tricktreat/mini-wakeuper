@@ -44,13 +44,20 @@
 <scroll-view scroll-y class="indexes" scroll-into-view="indexes-{{listCurID}}" style='height:calc(100vh - {{CustomBar}}px - 50px)' scroll-with-animation="true" enable-back-to-top="true">
   <view class="cu-list menu menu-avatar no-padding">
     <view class="cu-item" wx:for="{{memberList}}" wx:key>
-    <image src='{{item.avatarUrl}}' class='cu-avatar lg round' mode='widthFix'></image>
+      <image src='{{item.avatarUrl}}' class='cu-avatar lg round' mode='widthFix'></image>
       <!-- <view class="cu-avatar round lg">{{item.avatarUrl}}</view> -->
-      <view class='content'>
-        <view class='text-grey'>{{item.name}}</view>
+      <view class='content' style="flex:3">
+        <view class='text-black flex align-center'>{{item.name?item.name:item.nickName}} 
+          <view wx:if="{{item.member!=1}}" class='cu-tag radius sm margin-left-xs' style="margin-top:0">
+            <text wx:if="{{item.member==2}}">骨干</text>
+            <text wx:if="{{item.member==3}}">社长</text>
+          </view>
+        </view>
         <view class='text-gray text-sm'>
           {{item.master?item.department+'-'+item.master:"比较懒，没有设置专业信息"}}
         </view>
+      </view>
+      <view class="content flex justify-center text-sm {{item.gender?'icon-female text-blue':'icon-male text-pink'}}" style="flex:0.6">
       </view>
     </view>
   </view>

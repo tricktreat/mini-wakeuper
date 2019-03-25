@@ -35,17 +35,22 @@
 <view class='padding flex text-center text-grey bg-white shadow-warp'>
   <view class='flex flex-sub flex-direction solid-right'>
     <view class="margin-top-sm">
-      <text class="{{userInfo.gender?'icon-female text-blue':'icon-male text-pink'}}">{{userInfo.gender?' Boy':' Girl'}}</text>
+      <text class='icon-like text-red'> {{userInfo.like}} 赞</text>
     </view>
   </view>
   <view class='flex flex-sub flex-direction solid-right'>
     <view class="margin-top-sm">
-      <text class='icon-like text-red'> {{userInfo.like}} Likes</text>
+      <text class="{{userInfo.gender?'icon-female text-blue':'icon-male text-pink'}}">
+      <text wx:if="{{userInfo.member==0}}">{{userInfo.gender?' Boy':' Girl'}}</text>
+      <text wx:if="{{userInfo.member==1}}"> 普通成员</text>
+      <text wx:if="{{userInfo.member==2}}"> 骨干成员</text>
+      <text wx:if="{{userInfo.member==3}}"> 社长</text>
+      </text>
     </view>
   </view>
   <view class='flex flex-sub flex-direction'>
     <view class="margin-top-sm">
-      <text class='icon-moneybag text-orange'> {{userInfo.corn}} Corns</text>
+      <text class='icon-moneybag text-orange'> {{userInfo.corn}} 积分</text>
     </view>
   </view>
 </view>
