@@ -36,6 +36,28 @@
     <switch class='sm' checked='{{setting.circleIsCard}}' bindchange='settingChange' data-type='circleIsCard'></switch>
   </view>
 </view>
+<view class="cu-bar bg-white solid-bottom">
+  <view class='action'>
+    <text class='icon-titles text-{{setting.theme}} '></text> 动态加载数目
+  </view>
+  <view class='action'>
+    <button class='cu-btn bg-green shadow' bindtap="showModal" data-target='pageLimit'>设置</button>
+  </view>
+</view>
+<view class="cu-modal {{modalName=='pageLimit'?'show':''}}" bindtap='hideModal'>
+  <view class="cu-dialog" catchtap>
+    <radio-group class="block"  bindchange="settingChange" data-type='pageLimit'>
+      <view class='cu-list menu text-left'>
+        <view class='cu-item' wx:for="{{5}}" wx:key>
+          <label class='flex justify-between align-center flex-sub'>
+            <view class='flex-sub'>{{index +5}} 条</view>
+            <radio class='round' value='{{index +5}}' checked='{{setting.pageLimit==index+5}}'></radio>
+          </label>
+        </view>
+      </view>
+    </radio-group>
+  </view>
+</view>
 
 <view class="cu-bar bg-white">
   <view class='action'>
@@ -53,7 +75,7 @@
     <switch class='sm' checked='{{setting.swiperDotIsRound}}' bindchange='settingChange' data-type='swiperDotIsRound'></switch>
   </view>
 </view>
-<view class="cu-bar bg-white solid-bottom margin-top">
+<view class="cu-bar bg-white solid-bottom">
   <view class='action'>
     <text class='icon-titles text-{{setting.theme}} '></text> 应用列表样式
   </view>

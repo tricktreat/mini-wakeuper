@@ -57,12 +57,12 @@ Page({
       campus: app.globalData.userInfo.campus,
       master: app.globalData.userInfo.master,
       department: app.globalData.userInfo.department,
-      birthday: new Date(app.globalData.userInfo.birthday).toLocaleDateString(),
+      birthday: app.globalData.userInfo.birthday,
       motto: app.globalData.userInfo.motto,
       phoneNumber: app.globalData.userInfo.phoneNumber,
       studentId: app.globalData.userInfo.studentId,
       name: app.globalData.userInfo.name,
-      tag: app.globalData.userInfo.tags.join('\n')
+      tag: app.globalData.userInfo.tags.join(' ')
     })
   },
   pickerChange(e) {
@@ -111,10 +111,10 @@ Page({
       phoneNumber: this.data.phoneNumber,
       studentId: this.data.studentId,
       name: this.data.name,
-      tag: this.data.tag.split('\n').join(";")
+      tag: this.data.tag.split(' ').join(";")
     }
     Object.assign(app.globalData.userInfo, data)
-    app.globalData.userInfo.tags = this.data.tag.split('\n')
+    app.globalData.userInfo.tags = this.data.tag.split(' ')
     delete app.globalData.userInfo.tag
     wx.request({
       method: "POST",

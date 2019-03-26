@@ -24,7 +24,7 @@ Page({
   },
   getData(patten) {
     wx.request({
-      url: app.globalData.baseUrl + '/userinfo/member',
+      url: app.globalData.baseUrl + 'userinfo/member',
       data: patten ? {patten: patten}:{},
       success: res => {
         this.setData({
@@ -107,6 +107,13 @@ Page({
   //     }
   //   }
   // },
+  onShareAppMessage() {
+    return {
+      title: '一起加入WakeUp俱乐部吧~',
+      imageUrl: 'https://blog.ibilidi.cn/images/welcome.jpg',
+      path: 'pages/index/index/index'
+    }
+  },
   pageBack() {
     wx.navigateBack({
       delta: 1

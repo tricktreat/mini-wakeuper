@@ -31,10 +31,10 @@ Component({
       name: '排行榜',
       path: "/pages/index/rank/rank"
     }, {
-      icon: 'loading2',
+      icon: 'presentfill',
       color: 'orange',
       badge: 0,
-      name: '开发中'
+      name: '图书漂流'
     }, {
       icon: 'loading2',
       color: 'yellow',
@@ -54,10 +54,10 @@ Component({
         name: '社团成员',
         path: "/pages/index/member/member"
       }, {
-        icon: 'loading2',
+        icon: 'group_fill',
         color: 'purple',
         badge: 0,
-        name: '开发中'
+        name: '社团管理'
       }, {
         icon: 'loading2',//'questionfill',
         color: 'mauve',
@@ -71,6 +71,17 @@ Component({
       }, {
         icon: 'loading2',
         color: 'mauve',
+        badge: 0,
+        name: '开发中'
+      },
+      {
+        icon: 'loading2',
+        color: 'purple',
+        badge: 0,
+        name: '开发中'
+      }, {
+        icon: 'loading2',
+        color: 'cyan',
         badge: 0,
         name: '开发中'
       }],
@@ -93,21 +104,20 @@ Component({
           }
         }
       })
-      if (app.globalData.userInfo) {
+      let setdata=(userinfo)=>{
         this.setData({
-          userInfo: app.globalData.userInfo,
-          birthday: app.globalData.userInfo.birthday.slice(5, 7) + "-" + app.globalData.userInfo.birthday.slice(8, 10),
+          userInfo: userinfo,
+          birthday: userinfo.birthday.slice(5, 7) + "-" + userinfo.birthday.slice(8, 10),
           hasUserInfo: true
         })
+      }
+      if (app.globalData.userInfo) {
+        setdata(app.globalData.userInfo)
       } else {
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
         // 所以此处加入 callback 以防止这种情况
         app.userInfoReadyCallback = res => {
-          this.setData({
-            userInfo: res,
-            birthday: res.birthday.slice(5, 7) + "-" + res.birthday.slice(8, 10),
-            hasUserInfo: true
-          })
+          setdata(res)
         }
       }
       wx.request({
@@ -125,18 +135,6 @@ Component({
           showBirthday: true
         })
       }
-      // else {
-      //   // 在没有 open-type=getUserInfo 版本的兼容处理
-      //   wx.getUserInfo({
-      //     success: res => {
-      //       app.globalData.userInfo = res.userInfo
-      //       this.setData({
-      //         userInfo: res.userInfo,
-      //         hasUserInfo: true
-      //       })
-      //     }
-      //   })
-      // }
     },
     onShow: function () {
       this.setData({
@@ -188,10 +186,9 @@ Component({
         }
         let now = new Date()
         // console.log(now)
-        let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+        // let today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
         // console.log(today)
-
-        // let today = new Date(new Date().setHours(0, 0, 0, 0))
+        let today = Date.parse(now.toDateString())
         let dur = now - today
         if (dur > app.globalData.signInStart && dur < app.globalData.signInEnd) {
           wx.request({
@@ -231,8 +228,16 @@ Component({
       this.setData({
         cardCur: e.detail.current
       })
-    }
+    },
+    onShareAppMessage() {
+      return {
+        title: '一起加入WakeUp俱乐部吧~',
+        imageUrl: 'https://blog.ibilidi.cn/images/welcome.jpg',
+        path: 'pages/index/index/index'
+      }
+    },
   },
+
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' && this.getTabBar()) {

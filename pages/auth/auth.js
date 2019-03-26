@@ -17,15 +17,24 @@ Page({
       setting: app.globalData.setting
     })
   },
+  onShareAppMessage() {
+    return {
+      title: '一起加入WakeUp俱乐部吧~',
+      imageUrl: 'https://blog.ibilidi.cn/images/welcome.jpg',
+      path: 'pages/index/index/index'
+    }
+  },
   getUserInfo: function(e) {
-    Object.assign(app.globalData.userInfo , e.detail.userInfo)
-    this.setData({
-      userInfo: app.globalData.userInfo,
-      hasUserInfo: true,
-    })
-    wx.switchTab({
-      // 这里将微信用户信息添加到数据库
-      url: '/pages/index/index/index',
-    })
+    if(e.detail.userInfo){
+      Object.assign(app.globalData.userInfo, e.detail.userInfo)
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true,
+      })
+      wx.switchTab({
+        // 这里将微信用户信息添加到数据库
+        url: '/pages/index/index/index',
+      })
+    }
   }
 })

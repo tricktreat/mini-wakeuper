@@ -5,6 +5,34 @@
 </view>
 
 <view class="cu-card dynamic {{setting.circleIsCard?'':'no-card'}}">
+  <view wx:for="{{momentList}}" wx:key class="cu-item solid "  bindtap='toDetail' data-moment='{{item}}'>
+    <view class="cu-list menu menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{item.user.avatarUrl}});"></view>
+        <view class='content flex-sub'>
+          <view>{{item.user.nickName}}</view>
+          <view class='text-gray text-sm flex justify-between'>
+            {{item.createTime}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='text-content'>
+      {{item.content}}
+    </view>
+    <view wx:if="{{item.type==0}}" class="grid col-1 flex-sub padding-lr">
+      <view class="bg-img only-img" style="background-image:url({{item.url}});" wx:key>
+      </view>
+    </view>
+    <view class='text-gray text-sm text-right padding'>
+      <text class="icon-appreciatefill"></text> {{item.likeInfos.length}}
+      <text class="icon-messagefill"></text> {{item.commentInfos.length}}
+    </view>
+  </view>
+</view> 
+
+  <button class='cu-btn block bg-{{setting.theme}} margin' bindtap='nextPage' disabled="{{momentList.length % setting.pageLimit!=0?'true':''}}">{{momentList.length % setting.pageLimit!=0?'到底了':'下一页'}}</button>
+<!-- <view class="cu-card dynamic {{setting.circleIsCard?'':'no-card'}}">
   <view wx:for="1" wx:key class="cu-item shadow">
     <view class="cu-list menu menu-avatar">
       <view class="cu-item">
@@ -20,8 +48,8 @@
     <view class='text-content'>
       开发中.............
     </view>
-    <view class="grid {{isCard?'col-3 grid-square':'col-1'}} flex-sub padding-lr">
-      <view class="bg-img {{isCard?'':'only-img'}}" style="background-image:url(https://image.weilanwl.com/img/square-1.jpg);" wx:for="{{isCard?9:1}}" wx:key>
+    <view class="grid {{setting.circleIsCard?'col-3 grid-square':'col-1'}} flex-sub padding-lr">
+      <view class="bg-img {{setting.circleIsCard?'':'only-img'}}" style="background-image:url(https://image.weilanwl.com/img/square-1.jpg);" wx:for="{{setting.circleIsCard?9:1}}" wx:key>
       </view>
     </view>
     <view class='text-gray text-sm text-right padding'>
@@ -54,4 +82,6 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
+
+<view class='cu-tabbar-height'></view>

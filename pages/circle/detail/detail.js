@@ -1,21 +1,23 @@
+//index.js
+//获取应用实例
 const app = getApp()
 
 Component({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    setting: app.globalData.setting,
-    userInfo: {},
-    scroll: 0
   },
   methods: {
-    onLoad: function () {
+    onLoad: function (e) {
+      
       this.setData({
         setting: app.globalData.setting,
-        userInfo: app.globalData.userInfo
+        userInfo: app.globalData.userInfo,
+        moment: JSON.parse(e.moment)
       })
+    
     },
-    onShow:function(){
+    onShow: function () {
       this.setData({
         setting: app.globalData.setting,
         userInfo: app.globalData.userInfo
@@ -31,28 +33,6 @@ Component({
         modalName: null
       })
     },
-    showQrcode() {
-      wx.previewImage({
-        urls: ['https://blog.ibilidi.cn/images/wechat.jpg'],
-        current: 'https://blog.ibilidi.cn/images/wechat.jpg'   
-      })
-    },
-    CopyLink(e) {
-      wx.setClipboardData({
-        data: e.currentTarget.dataset.link,
-        success: res => {
-          wx.showToast({
-            title: '已复制',
-            duration: 1000,
-          })
-        }
-      })
-    },
-    scrollSteps() {
-      this.setData({
-        scroll: this.data.scroll == 9 ? 0 : this.data.scroll + 1
-      })
-    },
     onShareAppMessage() {
       return {
         title: '一起加入WakeUp俱乐部吧~',
@@ -65,8 +45,8 @@ Component({
     show() {
       if (typeof this.getTabBar === 'function' && this.getTabBar()) {
         this.getTabBar().setData({
-          selected: 2,
-          setting:app.globalData.setting
+          selected: 1,
+          setting: app.globalData.setting
         })
       }
     }

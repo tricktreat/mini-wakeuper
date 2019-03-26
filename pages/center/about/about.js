@@ -29,6 +29,13 @@ Page({
       }
     })
   },
+  onShareAppMessage() {
+    return {
+      title: '一起加入WakeUp俱乐部吧~',
+      imageUrl: 'https://blog.ibilidi.cn/images/welcome.jpg',
+      path: 'pages/index/index/index'
+    }
+  },
   pageBack() {
     wx.navigateBack({
       delta: 1

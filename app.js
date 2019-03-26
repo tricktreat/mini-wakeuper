@@ -12,9 +12,8 @@ App({
           data: data,
           url: this.globalData.baseUrl + 'userinfo/register',
           success: res => {
-
+            res.data.data['birthday'] = res.data.data.birthday.slice(0, 4) + '-' + res.data.data.birthday.slice(5, 7) + "-" + res.data.data.birthday.slice(8, 10)
             this.globalData.userInfo = res.data.data
-
             // console.log(this.globalData.userInfo)
             // 获取用户信息
             wx.getSetting({
@@ -51,6 +50,7 @@ App({
       }
     })
 
+    
     // 获取系统状态栏信息
     wx.getSystemInfo({
       success: e => {
@@ -68,6 +68,7 @@ App({
       data: data,
       url: this.globalData.baseUrl + 'userinfo',
       success: res => {
+        res.data.data['birthday'] = res.data.data.birthday.slice(0, 4)+'-'+ res.data.data.birthday.slice(5, 7) + "-" + res.data.data.birthday.slice(8, 10)
         this.globalData.userInfo = res.data.data
         page.setData({
           userInfo: res.data.data
@@ -80,6 +81,6 @@ App({
     baseUrl: "https://app4.aobtain.cn/wakeup/", //"http://localhost:8888/",//
     signInStart: 3600 * 1000 * 6,
     signInEnd: 3600 * 1000 * 7 + 20 * 60 * 1000,
-    setting: wx.getStorageSync('setting') || { "theme": "green", "circleIsCard": false, "swiperIsCard": false, "swiperDotIsRound": false, "gridCol": 4, "gridBorder": 0, }
+    setting: wx.getStorageSync('setting') || { "theme": "green", "circleIsCard": true, "swiperIsCard": false, "swiperDotIsRound": false, "gridCol": 4, "gridBorder": 0,'pageLimit':5 }
   }
 })

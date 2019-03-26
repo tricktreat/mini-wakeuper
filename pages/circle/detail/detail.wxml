@@ -1,0 +1,59 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-{{setting.theme}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 动态详情
+    </navigator>
+  </view>
+</view>
+
+
+<view class="cu-card dynamic {{setting.circleIsCard?'':'no-card'}}">
+  <view class="cu-item shadow">
+    <view class="cu-list menu menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{moment.user.avatarUrl}});"></view>
+        <view class='content flex-sub'>
+          <view>{{moment.user.nickName}}</view>
+          <view class='text-gray text-sm flex justify-between'>
+            {{moment.createTime}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='text-content'>
+      {{moment.content}}
+    </view>
+    <view wx:if="{{moment.type==0}}" class="grid col-1 flex-sub padding-lr">
+      <view class="bg-img only-img" style="background-image:url({{moment.url}});">
+      </view>
+    </view>
+    <view class='text-gray text-sm text-right padding'>
+      <text class="icon-appreciatefill"></text> {{moment.likeInfos.length}}
+      <text class="icon-messagefill"></text> {{moment.commentInfos.length}}
+    </view>
+    <view class="cu-list menu menu-avatar comment solids-top">
+      <view class="cu-item" wx:for="{{moment.commentInfos}}" wx:for-item='comment' wx:key>
+        <view class="cu-avatar round" style="background-image:url({{comment.fromUser.avatarUrl}});"></view>
+        <view class='content'>
+          <view class='text-grey'>{{comment.fromUser.nickName}}</view>
+          <view class='text-gray text-content text-df'>
+            {{comment.content}}
+          </view>
+          <!-- <view class='bg-grey padding-sm radius margin-top-sm  text-sm' wx:if="{{index==1}}">
+            <view class="flex {{index!=0?'margin-top-sm':'' }}" wx:for="{{2}}" wx:key>
+              <view>我：</view>
+              <view class='flex-sub'>想睡觉！</view>
+            </view>
+          </view> -->
+          <view class='margin-top-sm flex justify-between'>
+            <view class='text-gray text-df'>{{moment.createTime}}</view>
+            <!-- <view>
+              <text class="icon-appreciate{{!isZan?'fill':''}} text-{{!isZan?'red':'gray'}}"></text>
+              <text class="icon-messagefill text-gray margin-left-sm"></text>
+            </view> -->
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -10,19 +10,19 @@
 <form bindsubmit="formSubmit" report-submit>
   <view class="cu-form-group margin-top">
     <view class='title'>姓名</view>
-    <input bindinput='setInput' placeholder="{{name?name:'未设置'}}" class='radius' name='input' data-type='name'></input>
+    <input bindinput='setInput' placeholder="{{name?name:'未设置'}}" maxlength="4" class='radius' style='text-align:right' name='input' data-type='name'></input>
   </view>
   <view class="cu-form-group">
     <view class='title'>学号</view>
-    <input bindinput='setInput' placeholder="{{studentId?studentId:'未设置'}}" class='radius' name='input' data-type='studentId'></input>
+    <input bindinput='setInput' placeholder="{{studentId?studentId:'未设置'}}" maxlength="10" class='radius' style='text-align:right' name='input' data-type='studentId'></input>
   </view>
     <view class="cu-form-group">
     <view class='title'>手机</view>
-    <input bindinput='setInput' placeholder="{{phoneNumber?phoneNumber:'未设置'}}" class='radius' name='input' data-type='phoneNumber'></input>
+    <input bindinput='setInput' placeholder="{{phoneNumber?phoneNumber:'未设置'}}" maxlength="11" class='radius' style='text-align:right'  name='input' data-type='phoneNumber'></input>
   </view>
   <view class="cu-form-group ">
     <view class='title'>签名</view>
-    <input bindinput='setInput' placeholder="{{motto?motto:'未设置'}}" class='radius' data-type='motto'></input>
+    <input bindinput='setInput' placeholder="{{motto?motto:'未设置'}}" maxlength="25" class='radius' style='text-align:right' data-type='motto'></input>
   </view>
 
 
@@ -73,7 +73,7 @@
   </view> -->
   <view class="cu-form-group">
     <view class='title'>生日</view>
-    <picker mode="date" start="1980-1-1" end="2020-12-12" bindchange="pickerChange" data-type='birthday'>
+    <picker mode="date" start="1980-1-1" end="2020-12-12" bindchange="pickerChange" value="{{birthday?birthday:'1998-10-01'}}" data-type='birthday'>
       <view class="picker">
         {{birthday?birthday:'未设置'}}
       </view>
@@ -123,7 +123,7 @@
   </radio-group> -->
     <view class="cu-form-group top">
     <view class='title'>标签</view>
-    <textarea placeholder="{{tag?tag:'每行输入一个标签，最多不超过三个'}}" maxlength="12" placeholder-class='placeholder' bindinput='setInput' data-type='tag'></textarea>
+    <input placeholder="{{tag?tag:'每行输入一个标签，最多不超过三个'}}" maxlength="12" class='radius'  bindinput='setInput' data-type='tag' style='text-align:right'></input>
   </view>
   <!-- <view class="cu-form-group margin-top">
     <view class='title'>复选选操作(checkbox)</view>
