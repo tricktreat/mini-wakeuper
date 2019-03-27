@@ -9,11 +9,14 @@ Component({
   },
   methods: {
     onLoad: function (e) {
-      
+      let moment=JSON.parse(e.moment)
+      for (let comment of moment.commentInfos) {
+        comment.createTime = new Date(comment.createTime).pattern("yyyy年MM月dd日 hh:mm:ss")
+      }
       this.setData({
         setting: app.globalData.setting,
         userInfo: app.globalData.userInfo,
-        moment: JSON.parse(e.moment)
+        moment: moment
       })
     
     },

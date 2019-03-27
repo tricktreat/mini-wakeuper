@@ -93,7 +93,7 @@ Component({
       let date = now.getDate()
       this.setData({
         setting: app.globalData.setting,
-        today: (month > 9 ? month.toString() : '0' + month.toString()) + "-" + (date > 9 ? date.toString() : '0' + date.toString())
+        today: now.pattern("MM-dd")
       })
       wx.getSetting({
         success: res => {
@@ -107,7 +107,7 @@ Component({
       let setdata=(userinfo)=>{
         this.setData({
           userInfo: userinfo,
-          birthday: userinfo.birthday.slice(5, 7) + "-" + userinfo.birthday.slice(8, 10),
+          birthday: new Date(userinfo.birthday).pattern("MM-dd"),
           hasUserInfo: true
         })
       }
@@ -192,7 +192,7 @@ Component({
         let dur = now - today
         if (dur > app.globalData.signInStart && dur < app.globalData.signInEnd) {
           wx.request({
-            data: { openId: this.data.userInfo.openId, signTime: now.toUTCString() },
+            data: { openId: this.data.userInfo.openId, signTime: now},
             method: "post",
             url: app.globalData.baseUrl + 'signin',
             success: res => {
@@ -209,6 +209,7 @@ Component({
         } else {
           let end = new Date(app.globalData.signInEnd)
           let start = new Date(app.globalData.signInStart)
+          //new Date参数为int时，默认是GMT-0时间，相对于1970-1-1 00:00:00 GMT+0。所以下面获得相对的时间点要转化成toUTCString。直接使用get系列的函数得到的是本地时间。
           setTimeout(() => {
             this.setData({
               showLoadModal: false,

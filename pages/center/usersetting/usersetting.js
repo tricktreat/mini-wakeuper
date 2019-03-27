@@ -5,8 +5,6 @@ Page({
     CustomBar: app.globalData.CustomBar,
     setting: app.globalData.setting,
     userInfo: app.globalData.userInfo,
-    time: '12:01',
-
     campus: null,
     master: null,
     department: null,
@@ -47,8 +45,7 @@ Page({
     multiArray: [
       ['文学院', '材料与化学化工学部', '传媒学院', '纳米科学技术学院', '社会学院', '计算机科学与技术学院', '政治与公共管理学院', '电子信息学院', '教育学院', '机电工程学院', '东吴商学院', '沙钢钢铁学院', '王健法学院', '纺织与服装工程学院', '外国语学院', '轨道交通学院', '金螳螂建筑学院', '体育学院', '数学科学学院', '艺术学院', '物理科学与技术学院', '音乐学院', '光电科学与工程学院', '医学部', '能源学院'],
       ['中国语言文学类', '汉语言文学(师范)', '汉语言文学(基地)', '汉语国际教育', '秘书学']
-    ],
-    date: '2018-12-25',
+    ]
   },
   onLoad: function () {
     this.setData({
@@ -106,7 +103,7 @@ Page({
       campus: this.data.campus,
       master: this.data.master,
       department: this.data.department,
-      birthday: this.data.birthday,
+      birthday: this.data.birthday+"GMT+8",//new Date的参数如果不指定时区默认为GMT+0时间
       motto: this.data.motto,
       phoneNumber: this.data.phoneNumber,
       studentId: this.data.studentId,

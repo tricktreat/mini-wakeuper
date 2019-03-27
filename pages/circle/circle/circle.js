@@ -23,7 +23,11 @@ Component({
       wx.request({
         url: app.globalData.baseUrl + 'moment',
         data: para,
+        
         success: res => {
+          for(let moment of res.data.data){
+            moment.createTime = new Date(moment.createTime).pattern("yyyy年MM月dd日 hh:mm:ss")
+          }
           this.setData({
             momentList: this.data.momentList.concat(res.data.data),
             offset: this.data.offset + res.data.data.length
