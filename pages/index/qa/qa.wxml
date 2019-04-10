@@ -1,0 +1,98 @@
+<!--pages/index/qa/qa.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-{{setting.theme}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 问答助手
+    </navigator>
+  </view>
+  </view>
+
+  
+<scroll-view class='cu-chat' scroll-y scroll-into-view="scroll-{{lastChatOrder}}" style='height:{{scrollHeight}}px'>
+  <block wx:for="{{chatList}}" wx:for-item="chat" wx:for-key="index" wx:key="order">
+
+    <block wx:if="{{chat.fromWho=='system'}}">
+      <view style='display:flex'>
+        <view id="scroll-{{chat.order}}" class="cu-info">
+          <text class="icon-{{chat.status=='success'?'roundcheckfill text-green ':'roundclosefill text-red'}} "></text> {{chat.content}}
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view id="scroll-{{chat.order}}" class="cu-item {{chat.fromWho=='me'?'self':''}}">
+
+        <block wx:if="{{chat.fromWho=='me'}}">
+          <view class="main">
+            <view class='content bg-green shadow'>
+              <text>{{chat.content}}</text>
+            </view>
+          </view>
+          <view class="cu-avatar radius" style="background-image:url({{chat.headerUrl}});"></view>
+          <view class='date'>{{chat.createTime}}</view>
+        </block>
+
+        <block wx:if="{{chat.fromWho=='you'}}">
+          <view class="cu-avatar radius" style="background-image:url({{chat.headerUrl}});"></view>
+          <view class="main">
+            <view class='content shadow'>
+              <text>{{chat.content}}</text>
+            </view>
+            <!-- <view  class='action text-grey'>
+              <text class='icon-warnfill text-red text-xxl'></text>
+            </view> -->
+          </view>
+          <text wx:if="{{chat.tag=='valid'}}" data-target='{{index}}' bindtap='showMore' class='icon-more text-purple text-xxl'></text>
+          <view class='date '>{{chat.createTime}}</view>
+        </block>
+      </view>
+    </block>
+  </block>
+  <view class="cu-modal {{moreShow==1?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class='content'>全部答案</view>
+        <view class='action' bindtap='hideMore'>
+          <text class='icon-close text-red'></text>
+        </view>
+      </view>
+      <scroll-view scroll-y style='height:600rpx'>
+        <view class='padding'>
+          <view class='solids-bottom padding-xs flex align-center'>
+            <!-- <view class='padding'>14</view> -->
+            <view class='flex-sub text-center'>
+              <block wx:for='{{candidates_list[moreShowIndex]}}' wx:for-item="candidate" wx:for-key="index">
+
+                <view class='text-left padding-xs'>{{candidate}}</view>
+                <view class="cu-capsule radius padding-bottom text-left">
+                  <view class='cu-tag bg-purple sm'>
+                    <text class='icon-questionfill'></text>
+                  </view>
+                  <view class="cu-tag line-purple sm">
+                    可信度：{{scores_list[moreShowIndex][index]}}
+                  </view>
+                </view>
+                <view class='solids-bottom'></view>
+                <!-- 糖尿病症状 -->
+
+              </block>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+    </view>
+  </view>
+
+</scroll-view>
+
+<view class="cu-bar foot input" style='bottom:{{keyboard}}px'>
+  <!-- <view class='action'>
+    <text class='icon-sound text-grey'></text>
+  </view> -->
+  <input adjust-position='{{false}}' class='solid-bottom' bindfocus='inputFocus' bindblur='inputBlur' name='chat' maxlength="300" cursor-spacing="10" bindinput='onInput' value='{{input}}'></input>
+  <!-- <view class='action'>
+    <text class='icon-emojifill text-grey'></text>
+  </view> -->
+  <button class='cu-btn bg-green shadow' bindtap='sendChat'>发送</button>
+</view>

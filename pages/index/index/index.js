@@ -59,10 +59,11 @@ Component({
         badge: 0,
         name: '社团管理'
       }, {
-        icon: 'loading2',//'questionfill',
+        icon: 'questionfill',//'questionfill',
         color: 'mauve',
         badge: 0,
-        name: '开发中',//'帮助'
+        name: '问答助手',//'帮助'
+        path: "/pages/index/qa/qa"
       }, {
         icon: 'loading2',//'commandfill',
         color: 'purple',
